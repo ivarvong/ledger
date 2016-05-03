@@ -11,12 +11,13 @@ defmodule Ledger.Mixfile do
   end
 
   def application do
-    [applications: [:logger],
+    [applications: [:postgrex, :ecto, :logger],
      mod: {Ledger, []}]
   end
 
   defp deps do
     [{:postgrex, ">= 0.0.0"},
-     {:ecto, "~> 2.0.0-beta"}]
+     {:ecto, "== 2.0.0-beta.2"},
+     {:poison, "~> 2.0"}]
   end
 end
