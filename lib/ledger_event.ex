@@ -1,4 +1,4 @@
-defmodule Event do
+defmodule Ledger.Event do
   use Ecto.Schema
 
   schema "events" do
