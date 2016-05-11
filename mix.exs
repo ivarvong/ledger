@@ -20,6 +20,7 @@ defmodule Ledger.Mixfile do
      {:ecto, "== 2.0.0-beta.2"},
      {:poison, "~> 2.0"},
      {:cowboy, "~> 1.0.0"},
-     {:plug, "~> 0.12"},]
+     {:plug, "~> 0.12"},
+     {:mix_test_watch, "~> 0.2", only: :dev}]
   end
 end

@@ -3,7 +3,7 @@ defmodule Ledger.Router do
 
   plug Plug.Logger
   plug Plug.Head
-  plug Plug.Parsers, parsers: [:urlencoded]
+  plug Plug.Parsers, parsers: [:urlencoded, :json], json_decoder: Poison
   plug Plug.RequestId
   plug :match
   plug :dispatch
@@ -39,6 +39,12 @@ defmodule Ledger.Router do
     {:ok}
   end
 
+  post "/batch" do
+    IO.inspect conn
+    conn |> send_resp(200, "ok")
+  end
+
+
   get "/" do
 
     {_status, client_data} = conn.params |> maybe_decode("json")
@@ -69,6 +75,32 @@ defmodule Ledger.Router do
       device: "device",
       ip: "ip",
       data: client_data,
+    }
+    Repo.insert!(event)
+
+    conn |> send_resp(200, "OK")
+  end
+
+  def email_open_params(conn) do
+    params = conn.params
+    if params["uniqid"] == nil do
+      {:error, "Missing uniqid"}
+    else
+      {:ok, params["uniqid"]}
+    end
+  end
+
+  get "/v1/email-open/:cid/:uniqid/p.png" do
+
+    event = %Event{
+      type: "e",
+      key: "email-open",
+      device: "",
+      ip: "",
+      data: %{
+        "cid" => cid,
+        "uniqid" => uniqid
+      }
     }
     Repo.insert!(event)
 
