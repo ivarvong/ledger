@@ -88,9 +88,9 @@ defmodule LedgerTest do
   test "can insert an email open event" do
     uniqid = "uniqid_#{random_string(20)}"
     campaignid = "campaignid_#{random_string(20)}"
-    Router.call(conn(:get, "/v1/email-open/#{campaignid}/#{uniqid}/p.png"), [])
+    Router.call(conn(:get, "/v1/email-open/#{campaignid}/#{uniqid}/a.png"), [])
     event_count = data_from_all_events
-      |> Enum.filter(fn data -> data["uniqid"] == uniqid end)
+      |> Enum.filter(fn data -> data["user"] == uniqid end)
       |> Enum.count
     assert event_count == 1
   end

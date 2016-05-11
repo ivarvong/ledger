@@ -90,7 +90,7 @@ defmodule Ledger.Router do
     end
   end
 
-  get "/v1/email-open/:cid/:uniqid/p.png" do
+  get "/v1/email-open/:campaign/:user/a.png" do
 
     event = %Event{
       type: "e",
@@ -98,8 +98,8 @@ defmodule Ledger.Router do
       device: "",
       ip: "",
       data: %{
-        "cid" => cid,
-        "uniqid" => uniqid
+        "campaign" => campaign,
+        "user" => user
       }
     }
     Repo.insert!(event)

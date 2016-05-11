@@ -7,7 +7,8 @@ defmodule Ledger.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps,
+     aliases: aliases]
   end
 
   def application do
@@ -22,5 +23,9 @@ defmodule Ledger.Mixfile do
      {:cowboy, "~> 1.0.0"},
      {:plug, "~> 0.12"},
      {:mix_test_watch, "~> 0.2", only: :dev}]
+  end
+
+  defp aliases do
+    [test: ["ecto.create", "ecto.migrate", "test"]]
   end
 end
